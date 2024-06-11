@@ -18,6 +18,7 @@ save_results = true
 # load data
 eur_block_file = "../block_data/eur_blocks.geojson"
 eur_fault_file = "../block_data/eur_faults.geojson"
+eur_slip_rate_file = "../strain_data/eur_geol_slip_rates.geojson"
 
 
 ana_block_file = "../../anatolia/block_data/anatolia_blocks.geojson"
@@ -29,7 +30,8 @@ gsrm_vels_file = "../../c_asia_blocks/gnss_data/gsrm_c_asia_vels.geojson"
 
 #boundary_file = "../block_data/cea_gnss_block_domain.geojson"
 #boundary_file = "../block_data/cea_hazard_boundary.geojson"
-boundary_file = "../block_data/emme23_bounds.geojson"
+#boundary_file = "../block_data/emme23_bounds.geojson"
+boundary_file = "../block_data/eur_bounds.geojson"
 
 
 @info "joining blocks"
@@ -39,11 +41,11 @@ block_df = vcat(eur_block_df,
                 ana_block_df,
                 cols=:union)
 
-#@info "culling blocks"
-#println("n blocks before ", size(block_df, 1))
-#bound_df = Oiler.IO.gis_vec_file_to_df(boundary_file)
-#block_df = Oiler.IO.get_blocks_in_bounds!(block_df, bound_df)
-#println("n blocks after ", size(block_df, 1))
+@info "culling blocks"
+println("n blocks before ", size(block_df, 1))
+bound_df = Oiler.IO.gis_vec_file_to_df(boundary_file)
+block_df = Oiler.IO.get_blocks_in_bounds!(block_df, bound_df)
+println("n blocks after ", size(block_df, 1))
 
 @info "doing faults"
 fault_df, faults, fault_vels = Oiler.IO.process_faults_from_gis_files(
@@ -100,16 +102,18 @@ println("n gnss vels: ", length(gnss_vels))
 
 @info "doing geol slip rates"
 #chn_slip_rate_df = Oiler.IO.gis_vec_file_to_df(chn_slip_rate_file)
+eur_slip_rate_df = Oiler.IO.gis_vec_file_to_df(eur_slip_rate_file)
+geol_slip_rate_df = eur_slip_rate_df
 #geol_slip_rate_df = vcat(cea_slip_rate_df, 
 #                         chn_slip_rate_df, 
                          #nea_slip_rate_df
 #                         )
 
-#geol_slip_rate_df, geol_slip_rate_vels = Oiler.IO.make_geol_slip_rate_vels!(
-#                                                geol_slip_rate_df,
-#                                                fault_df)
+geol_slip_rate_df, geol_slip_rate_vels = Oiler.IO.make_geol_slip_rate_vels!(
+                                                geol_slip_rate_df,
+                                                fault_df)
 
-#println("n geol slip rates: ", length(geol_slip_rate_vels))
+println("n geol slip rates: ", length(geol_slip_rate_vels))
 
 # tris
 
