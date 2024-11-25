@@ -21,12 +21,13 @@ eur_fault_file = "../block_data/eur_faults.geojson"
 eur_slip_rate_file = "../strain_data/eur_geol_slip_rates.geojson"
 
 
-ana_block_file = "../../anatolia/block_data/anatolia_blocks.geojson"
-ana_fault_file = "../../anatolia/block_data/anatolia_faults.geojson"
-weiss_vel_field_file = "../../anatolia/geod_data/weiss_et_al_2020_vels_down_100.geojson"
+ana_block_file = "../../anatolia_blocks/block_data/anatolia_blocks.geojson"
+ana_fault_file = "../../anatolia_blocks/block_data/anatolia_faults.geojson"
+weiss_vel_field_file = "../../anatolia_blocks/geod_data/weiss_et_al_2020_vels_down_100.geojson"
 
 daug_vels_file = "../strain_data/daugostino_vels.geojson"
-gsrm_vels_file = "../../c_asia_blocks/gnss_data/gsrm_c_asia_vels.geojson"
+#gsrm_vels_file = "../../c_asia_blocks/gnss_data/gsrm_c_asia_vels.geojson"
+gsrm_vels_file = "/Users/itchy/research/geodesy/gsrm/gps/gps_eur.geojson"
 
 #boundary_file = "../block_data/cea_gnss_block_domain.geojson"
 #boundary_file = "../block_data/cea_hazard_boundary.geojson"
