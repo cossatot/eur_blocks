@@ -20,14 +20,17 @@ eur_block_file = "../block_data/eur_blocks.geojson"
 eur_fault_file = "../block_data/eur_faults.geojson"
 eur_slip_rate_file = "../strain_data/eur_geol_slip_rates.geojson"
 
+ana_block_file = "../../anatolia/block_data/anatolia_blocks.geojson"
+ana_fault_file = "../../anatolia/block_data/anatolia_faults.geojson"
+weiss_vel_field_file = "../../anatolia/geod_data/weiss_et_al_2020_vels_down_100.geojson"
 
-ana_block_file = "../../anatolia_blocks/block_data/anatolia_blocks.geojson"
-ana_fault_file = "../../anatolia_blocks/block_data/anatolia_faults.geojson"
-weiss_vel_field_file = "../../anatolia_blocks/geod_data/weiss_et_al_2020_vels_down_100.geojson"
+naf_block_file = "../../n_africa_blocks/block_data/n_africa_blocks.geojson"
+naf_fault_file = "../../n_africa_blocks/block_data/n_africa_faults.geojson"
 
 daug_vels_file = "../strain_data/daugostino_vels.geojson"
 #gsrm_vels_file = "../../c_asia_blocks/gnss_data/gsrm_c_asia_vels.geojson"
-gsrm_vels_file = "/Users/itchy/research/geodesy/gsrm/gps/gps_eur.geojson"
+#gsrm_vels_file = "/Users/itchy/research/geodesy/gsrm/gps/gps_eur.geojson"
+gsrm_vels_file = "/home/itchy/research/geodesy/gsrm/gps/gps_eur.geojson"
 
 #boundary_file = "../block_data/cea_gnss_block_domain.geojson"
 #boundary_file = "../block_data/cea_hazard_boundary.geojson"
@@ -38,8 +41,10 @@ boundary_file = "../block_data/eur_bounds.geojson"
 @info "joining blocks"
 eur_block_df = Oiler.IO.gis_vec_file_to_df(eur_block_file)
 ana_block_df = Oiler.IO.gis_vec_file_to_df(ana_block_file)
+naf_block_df = Oiler.IO.gis_vec_file_to_df(naf_block_file)
 block_df = vcat(eur_block_df, 
-                ana_block_df,
+                #ana_block_df,
+                naf_block_df,
                 cols=:union)
 
 @info "culling blocks"
@@ -51,6 +56,7 @@ println("n blocks after ", size(block_df, 1))
 @info "doing faults"
 fault_df, faults, fault_vels = Oiler.IO.process_faults_from_gis_files(
                                                         ana_fault_file,
+                                                        naf_fault_file,
                                                         eur_fault_file,
                                                         block_df=block_df,
                                                         subset_in_bounds=true,
@@ -94,7 +100,7 @@ weiss_vel_field_vels = Oiler.IO.make_vels_from_gnss_and_blocks(
     
 gnss_vels = vcat(daug_vels,
                  gsrm_vels,
-                 weiss_vel_field_vels,
+                 #weiss_vel_field_vels,
                  )
 
 println("n gnss vels: ", length(gnss_vels))
