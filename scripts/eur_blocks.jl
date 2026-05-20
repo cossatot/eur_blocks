@@ -20,9 +20,9 @@ eur_block_file = "../block_data/eur_blocks.geojson"
 eur_fault_file = "../block_data/eur_faults.geojson"
 eur_slip_rate_file = "../strain_data/eur_geol_slip_rates.geojson"
 
-ana_block_file = "../../anatolia/block_data/anatolia_blocks.geojson"
-ana_fault_file = "../../anatolia/block_data/anatolia_faults.geojson"
-weiss_vel_field_file = "../../anatolia/geod_data/weiss_et_al_2020_vels_down_100.geojson"
+ana_block_file = "../../anatolia_blocks/block_data/anatolia_blocks.geojson"
+ana_fault_file = "../../anatolia_blocks/block_data/anatolia_faults.geojson"
+weiss_vel_field_file = "../../anatolia_blocks/geod_data/weiss_et_al_2020_vels_down_100.geojson"
 
 naf_block_file = "../../n_africa_blocks/block_data/n_africa_blocks.geojson"
 naf_fault_file = "../../n_africa_blocks/block_data/n_africa_faults.geojson"
@@ -146,7 +146,7 @@ results = Oiler.solve_block_invs_from_vel_groups(vel_groups; faults=faults,
                                                 check_closures=true,
                                                 pred_se=false,
                                                 constraint_method="kkt_sym",
-                                                factorization="lu")
+                                                factorization="reduce")
 
 #Oiler.ResultsAnalysis.compare_data_results(results=results,
 #                                           vel_groups=vel_groups,
@@ -185,7 +185,7 @@ if save_results == true
 
 end
 
-map_fig = Oiler.Plots.plot_results_map(results, vel_groups, faults)
+#map_fig = Oiler.Plots.plot_results_map(results, vel_groups, faults)
 
 #slip_rate_fig = Oiler.Plots.plot_slip_rate_fig(geol_slip_rate_df,
 #    geol_slip_rate_vels, fault_df, results)
@@ -193,6 +193,6 @@ map_fig = Oiler.Plots.plot_results_map(results, vel_groups, faults)
 Oiler.WebViewer.write_web_viewer(results=results, block_df=block_df,
                                  ref_pole="1111", directory="../web_viewer")
 
-show()
+#show()
 
 
