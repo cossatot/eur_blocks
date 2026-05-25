@@ -185,14 +185,16 @@ if save_results == true
 
 end
 
-#map_fig = Oiler.Plots.plot_results_map(results, vel_groups, faults)
+Oiler.WebViewer.write_web_viewer(results=results, block_df=block_df,
+                                 ref_pole="1111", directory="../web_viewer")
+
+
+map_fig = Oiler.Plots.plot_results_map(results, vel_groups, faults)
 
 #slip_rate_fig = Oiler.Plots.plot_slip_rate_fig(geol_slip_rate_df,
 #    geol_slip_rate_vels, fault_df, results)
 
-Oiler.WebViewer.write_web_viewer(results=results, block_df=block_df,
-                                 ref_pole="1111", directory="../web_viewer")
+show()
 
-#show()
 
 
